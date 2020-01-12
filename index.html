@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Url Nav</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="app.js" defer="defer"></script>
     <style>
@@ -27,37 +27,46 @@
         .button {border: 1px solid black; border-radius: 4px; padding:4px;}
         .button:hover {border: 1px solid gray;}
         #pages {display: none;}
-        #page-skip {visibility: hidden;}
+        #page-skip {display: none}
         .text-area {resize: none;}
         .align-center {align-items: center;}
         .column {flex-direction: column;}
         .flex-end {align-items: flex-end;}
         .just-end {justify-content: flex-end;}
         #text-input {display:none; background-color: white; padding: 8px; border-radius: 4px;}
+
+        @media only screen and (max-width: 425px) {
+            .container {flex-direction: column;}
+            .ab-left {position: static;}
+            .small {justify-content: flex-start;}
+            #input-buttons {margin-bottom: 16px;}
+        }
     </style>
 </head>
 <body>
     <input type="file" id="file-input" style="display:none" accept="text/plain" />
-    <div class="flex just-end m-bot-32 relative">
-        <div id="input-buttons" class="flex ab-cen">
+    <div class="flex just-end m-bot-32 relative container">
+        <div id="input-buttons" class="flex ab-left">
             <label for="file-input" class="clickable button" style="margin-right: 8px;">Choose File</label>
             <div class="button clickable" onclick="toggleInputButtons(true)">Paste files</div>
         </div>
-        <div id="text-input" class="flex column ab-cen">
+        <div id="text-input" class="flex column ab-left">
             <textarea name="" id="text-area-input" class="text-area" placeholder="Paste urls here: https://www.example.com, https://www.example2.com" cols="30" rows="5"></textarea>
             <div class="flex space-between">
                 <div class="button clickable" style="margin-top: 4px;" onclick="toggleInputButtons(false)">Cancel</div>
                 <div class="button clickable" style="margin-top: 4px;" onclick="handleTextArea()">Enter</div>
             </div>
         </div>
-        <div id="pages" class="ab-left"><span id="page-number"> </span> of <span id="total"></span></div>
-        <div id="page-skip" class="flex ab-75">
-            <input id="skip-input" type="text" style="margin-right: 8px;">
-            <div class="button clickable" onclick="skipTo()">Skip to</div>
-        </div>
-        <div>
-            <i class="fa fa-arrow-left fa-2x icon clickable" onclick="handleClick(false)"></i>
-            <i class="fa fa-arrow-right fa-2x icon clickable" onclick="handleClick(true)"></i>
+        <div class="flex column">
+            <div id="page-skip" class="flex" style="margin-bottom: 16px;">
+                <input id="skip-input" type="text" style="margin-right: 8px;">
+                <div class="button clickable" onclick="skipTo()">Skip to</div>
+            </div>
+            <div class="flex align-center just-end small">
+                <div id="pages" class=""><span id="page-number"> </span> of <span id="total"></span></div>
+                <i class="fa fa-arrow-left fa-2x icon clickable" onclick="handleClick(false)"></i>
+                <i class="fa fa-arrow-right fa-2x icon clickable" onclick="handleClick(true)"></i>
+            </div>
         </div>
     </div>
     <iframe id="frame" src=""></iframe>

@@ -55,9 +55,12 @@ function loadUrl() {
         return;
     }
     pages.style.display = "block";
-    skipBar.style.visibility = "visible";
+    skipBar.style.display = "flex";
     pageNumber.innerHTML = currentIndex+1;
-    frame.src = urlList[currentIndex];
+    // frame.src = urlList[currentIndex];
+    let strWindowFeatures = "location=yes,height=900,width=1000,scrollbars=yes,status=yes";
+    window.open(urlList[currentIndex], "popup", strWindowFeatures)
+    
 }
 
 function skipTo() {
