@@ -1,6 +1,10 @@
 let urlList = [];
 let frame = document.getElementById('frame');
 let currentIndex = 0;
+let pages = document.getElementById('pages');
+let pageNumber = document.getElementById('page-number');
+let total = document.getElementById('total');
+let skipBar = document.getElementById('page-skip');
 
 document.querySelector("#file-input").addEventListener('change', function () {
     let all_files = this.files;
@@ -22,17 +26,11 @@ document.querySelector("#file-input").addEventListener('change', function () {
 
     let fr = new FileReader()
     fr.addEventListener('load', function (e) {
+        urlList = [];
         let text = e.target.result;
-        text = text.replace(/\"/g,"");
-        text = text.replace(/\n/g,"");
-        // let lines = text.split('\n');
-        let urls = text.split(",");
-        urls.forEach(url => {
-            if(url != "") {
-                urlList.push(url)
-            }
-        })
-        frame.src = urlList[currentIndex];
+        parseText(text)
+        loadUrl()
+        total.innerHTML = urlList.length
     });
     
     fr.readAsText(file);
@@ -49,5 +47,64 @@ function handleClick(_value) {
         return;
     }
     currentIndex = tempIndex;
+    loadUrl();
+}
+
+function loadUrl() {
+    if(!urlList[currentIndex]) {
+        return;
+    }
+    pages.style.display = "block";
+    skipBar.style.visibility = "visible";
+    pageNumber.innerHTML = currentIndex+1;
     frame.src = urlList[currentIndex];
+}
+
+function skipTo() {
+    let skipInput = document.getElementById('skip-input');
+    let value = skipInput.value;
+    let page = parseInt(value)
+    if(isNaN(page)) {
+        alert('not a number');
+        return;
+    }
+    if(page < 0 || page > urlList.length) {return;}
+    currentIndex = page-1;
+    loadUrl();
+}
+
+function parseText(_text) {
+    _text = _text.replace(/\"/g, "");
+    _text = _text.replace(/\n/g, "");
+    _text = _text.replace(/" "/g, "");
+    // let lines = text.split('\n');
+    let urls = _text.split(",");
+    urls.forEach(url => {
+        if (url != "") {
+            urlList.push(url)
+        }
+    })
+}
+
+function handleTextArea() {
+    urlList = [];
+    let ta = document.getElementById('text-area-input');
+    let text = ta.value;
+    parseText(text);
+    loadUrl()
+    total.innerHTML = urlList.length
+    toggleInputButtons(false);
+    ta.value = "";
+}
+
+function toggleInputButtons(value) {
+    let textArea = document.getElementById('text-input');
+    let buttons = document.getElementById('input-buttons');
+    if(value) {
+        textArea.style.display = "flex";
+        buttons.style.display = "none";
+    } else {
+        textArea.style.display = "none";
+        buttons.style.display = "flex";
+    }
 }
