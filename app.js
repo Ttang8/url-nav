@@ -74,6 +74,7 @@ function skipTo() {
     if(page < 0 || page > urlList.length) {return;}
     currentIndex = page-1;
     loadUrl();
+    skipInput.vaule = "";
 }
 
 function parseText(_text) {
