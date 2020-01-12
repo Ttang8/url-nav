@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="app.js" defer="defer"></script>
+    <style>
+        body {height: 100vh}
+        #frame {
+            height: 75%;
+            width: 100%;
+            border: none;
+        }
+        .flex{display: flex}
+        .space-between{justify-content: flex-end;}
+        .icon {margin: 0 8px; color: gray}
+        .icon:hover {color: black;}
+        .clickable {cursor: pointer;}
+        .m-bot-32 {margin-bottom: 24px;}
+        .relative {position: relative;}
+        .ab-cen {position: absolute; right: 50%}
+        .button {border: 1px solid black; border-radius: 4px; padding:4px;}
+        .button:hover {border: 1px solid gray;}
+    </style>
+</head>
+<body>
+    <input type="file" id="file-input" style="display:none" accept="text/plain" />
+    <div class="flex space-between m-bot-32 relative">
+        <label for="file-input" class="clickable ab-cen button">Choose File</label>
+        <i class="fa fa-arrow-left fa-2x icon clickable" onclick="handleClick(false)"></i>
+        <i class="fa fa-arrow-right fa-2x icon clickable" onclick="handleClick(true)"></i>
+    </div>
+    <iframe id="frame" src=""></iframe>
+</body>
+
+</html>
