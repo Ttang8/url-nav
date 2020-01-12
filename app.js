@@ -78,14 +78,16 @@ function skipTo() {
 
 function parseText(_text) {
     _text = _text.replace(/\"/g, "");
-    _text = _text.replace(/\n/g, "");
+    // _text = _text.replace(/\n/g, "");
     _text = _text.replace(/" "/g, "");
-    // let lines = text.split('\n');
-    let urls = _text.split(",");
-    urls.forEach(url => {
-        if (url != "") {
-            urlList.push(url)
-        }
+    let lines = _text.split('\n');
+    lines.forEach(line => {
+        let urls = line.split(",");
+        urls.forEach(url => {
+            if (url != "") {
+                urlList.push(url)
+            }
+        })
     })
 }
 
