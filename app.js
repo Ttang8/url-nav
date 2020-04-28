@@ -94,6 +94,9 @@ function parseText(_text) {
 
 function handleTextArea() {
     urlList = [];
+    currentIndex = 0;
+    let skipInput = document.getElementById('skip-input');
+    skipInput.value = "";
     let ta = document.getElementById('text-area-input');
     let text = ta.value;
     parseText(text);
